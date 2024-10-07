@@ -42,7 +42,7 @@ class FilmCrudController {
 
         // Call the model's deleteFilm method
         if ($this->filmModel->deleteFilm($filmId)) {
-            header("Location: http://localhost:8080/app/views/DisplayFilms.php");
+            header("Location: ./DisplayFilms.php");
         } else {
             echo "Error: Film could not be deleted.";
         }
@@ -57,7 +57,7 @@ class FilmCrudController {
     // Edit film
     public function editFilm($id, $title, $description, $release_date,$posterPath) {
         if( $this->filmModel->updateFilm($id, $title, $description, $release_date,$posterPath)){
-            header("Location: http://localhost:8080/app/views/DisplayFilms.php");
+            header("Location: ./DisplayFilms.php");
         } else {
             echo "Error: Film could not be edited.";
         }

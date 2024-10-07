@@ -22,7 +22,7 @@ class UserCrudController {
         }
 
         if ($this->userModel->addUser($name, $email, $password, $role)) {
-            echo "User added successfully!";
+            header("Location: ./DisplayUsers.php");
         } else {
             echo "Error: User could not be added.";
         }
@@ -36,7 +36,7 @@ class UserCrudController {
         }
 
         if ($this->userModel->deleteUser($userId)) {
-            header("Location: http://localhost:8080/app/views/DisplayUsers.php");
+            header("Location: ./DisplayUsers.php");
         } else {
             echo "Error: User could not be deleted.";
         }
@@ -59,7 +59,7 @@ class UserCrudController {
         }
 
         if ($this->userModel->updateUser($id, $name, $email, $role)) {
-            header("Location: http://localhost:8080/app/views/DisplayUsers.php");
+            header("Location: ./DisplayUsers.php");
         } else {
             echo "Error: User could not be edited.";
         }

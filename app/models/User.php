@@ -14,29 +14,55 @@ class User {
     }
 
     // Create user (signup)
+    public function emailExists($email) {
+        // Sanitize input
+        $email = htmlspecialchars(strip_tags($email));
+    
+        // Prepare SQL statement
+        $query = "SELECT id FROM " . $this->table_name . " WHERE email = ?";
+        $stmt = $this->conn->prepare($query);
+    
+        // Bind parameter
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+    
+        // Check if any record exists
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+            return true; // Email exists
+        } else {
+            return false; // Email does not exist
+        }
+    
+        // Close the statement
+        $stmt->close();
+    }
+    
     public function signup($name, $email, $password) {
         // Sanitize input
         $name = htmlspecialchars(strip_tags($name));
         $email = htmlspecialchars(strip_tags($email));
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
+    
         // Prepare SQL statement
         $query = "INSERT INTO " . $this->table_name . " (name, email, password) VALUES (?, ?, ?)";
         $stmt = $this->conn->prepare($query);
-
+    
         // Bind parameters
         $stmt->bind_param("sss", $name, $email, $hashedPassword);
-
+    
         // Execute and return result
         if ($stmt->execute()) {
             return true;
         } else {
             return false; // Handle any errors internally in the model
         }
-
+    
         // Close the statement
         $stmt->close();
     }
+    
+    
     // Login user
     public function login($email, $password) {
         // Sanitize input

@@ -2,6 +2,10 @@
 require_once '../../config/Database.php';
 require_once '../controllers/UserController.php';
 
+// Check if session is already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Start session only if it's not already started
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     // Retrieve form data
     $name = $_POST['name'];
@@ -71,11 +75,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         button:hover {
             background-color: #4cae4c;
         }
+        .error-message {
+            color: #ff4d4d;
+            background-color: #ffe6e6;
+            padding: 10px;
+            border: 1px solid #ff0000;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Register</h2>
+
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="error-message">
+                <?php echo $_SESSION['error']; unset($_SESSION['error']); // Clear the error after displaying ?>
+            </div>
+        <?php endif; ?>
+
         <form method="POST" action="">
             <input type="text" name="name" placeholder="Name" required>
             <input type="email" name="email" placeholder="Email" required>

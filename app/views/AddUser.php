@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
     if (is_string($result)) {
         $errorMessage = $result; // Store the error message
     } else {
-        header("Location: http://localhost:8080/app/views/DisplayUsers.php"); // Redirect on success
+        header("Location: ./DisplayUsers.php"); // Redirect on success
         exit();
     }
 }
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
             <input type="text" name="name" placeholder="Name" required>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
-            <input type="text" name="role" placeholder="Role (admin or leave blank)" required>
+            <input type="text" name="role" placeholder="Role (admin or leave blank)" >
             <button type="submit" name="add_user">Add User</button>
         </form>
     </div>
