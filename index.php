@@ -1,4 +1,8 @@
 <?php
+//changes
+//changes
+//change
+
 session_start(); // Start the session to access session variables
 require_once './config/Database.php';
 require_once './app/controllers/PublicFilmController.php';
